@@ -4,30 +4,32 @@ import "../../config"
 
 Text {
     id: root
-    property real usage: 0
+    property int capacity: 0
+    property bool charging: false
 
     color: Theme.textPrimary
     font.family: Theme.fontFamily
     font.pixelSize: Theme.fontSizeSmall
-    text: "RAM " + Math.round(usage) + "%"
+    text: "BAT " + capacity + "%" + (charging ? " +" : "")
+    visible: capacity > 0   // hides cleanly on desktops with no battery
 
     FileView {
-        id: memFile
-        path: "/proc/meminfo"
-        onLoaded: root._parse(text())
+        id: capacityFile
+        path: "/sys/class/power_supply/BAT0/capacity"
+        onLoaded: root.capacity = parseInt(text().trim())
+    }
+
+    FileView {
+        id: statusFile
+        path: "/sys/class/power_supply/BAT0/status"
+        onLoaded: root.charging = text().trim() === "Charging"
     }
 
     Timer {
-        interval: 3000
+        interval: 5000
         running: true
         repeat: true
         triggeredOnStart: true
-        onTriggered: memFile.reload()
-    }
-
-    function _parse(content) {
-        const total = parseInt(content.match(/MemTotal:\s+(\d+)/)[1]);
-        const avail = parseInt(content.match(/MemAvailable:\s+(\d+)/)[1]);
-        usage = 100 * (total - avail) / total;
+        onTriggered: { capacityFile.reload(); statusFile.reload(); }
     }
 }
