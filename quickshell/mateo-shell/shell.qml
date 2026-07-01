@@ -1,9 +1,9 @@
 import Quickshell
-import "./modules/bar"
+import "./modules/sidebar"
 
 ShellRoot {
     Variants {
         model: Quickshell.screens
-        Bar {}
+        Sidebar {}
     }
 }
