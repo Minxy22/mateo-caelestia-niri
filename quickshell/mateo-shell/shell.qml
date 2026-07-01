@@ -1,54 +1,35 @@
 import Quickshell
 import QtQuick
+import "modules/bar"
 
 ShellRoot {
 
 	PanelWindow {
 		anchors.top: true
 
-		implicitWidth: 700
-		implicitHeight: 50
+		implicitWidth: 900
+		implicitHeight: 55
 
 		Rectangle{
 			anchors.fill:parent
 
 			radius: 20
-			color: "#d830313f"
+			color: "#d9e0e0e0"
 
 			Row {
 				anchors.fill: parent
-				anchors.margins: 15
+				anchors.margins: 12
 				spacing: 20
 
-				Text {
-					text : "M"
-					color: "white"
-					font.pixelSize: 20
-				}
+				LauncherButton {}
+
+				Workspaces {}
 
 				Item {
-					width: 350
+					width: 500
 				}
 
-				Text {
-					text: "18:30"
-					color: "white"
-				}
-
-				Text {
-					text: "CPU 8%"
-					color: "white"
-				}
-
-				Text {
-					text: "RAM 23%"
-					color: "white"
-				}
-
-				Text {
-					text: "BAT 90%"
-					color: "white"
-				}
+				Clock {}
 			}
 		}
 	}
