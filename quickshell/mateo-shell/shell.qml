@@ -5,15 +5,15 @@ ShellRoot {
 
 	PanelWindow {
 		anchors.top: true
+
 		implicitWidth: 700
 		implicitHeight: 50
 
 		Rectangle{
 			anchors.fill:parent
 
-			radius: 16
-			
-			color: "#cc1e1e2e"
+			radius: 20
+			color: "#d830313f"
 
 			Row {
 				anchors.fill: parent
