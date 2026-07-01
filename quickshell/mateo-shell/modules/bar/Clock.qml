@@ -1,17 +1,20 @@
 import QtQuick
+import "../../config"
 
 Text {
-	color: "#202020"
-	font.pixelSize: 16
+	id: root
+	property var now: new Date()
+
+	color: Theme.textPrimary
+	font.family: Theme.fontFamily
+	font.pixelSize: Theme.fontSizeNormal
+	font.bold: true
+	text: Qt.formatDateTime(now, "hh:mm")
 
 	Timer {
 		interval: 1000
 		running: true
 		repeat: true
-		onTriggered: {
-			parent.text = Qt.formatDateTime(new Date(), "HH:mm")
-		}
+		onTriggered: root.now = new Date()
 	}
-	
-	Component.onCompleted: text = Qt.formatDateTime(new Date(),"HH:mm")
 }

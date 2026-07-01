@@ -1,17 +1,24 @@
 import QtQuick
+import "../../config"
+import "../../services"
 
 Row {
-	spacing: 8
+	spacing: 6
 
-	Repeater{
-		model : 5
+	Repeater {
+		model: NiriService.workspaces
+		delegate: Rectangle {
+			width: modelData.id_focused ? 22 : 12
+			height: 12
+			radius: 6
+			color: modelData.is_focused ? Theme.accent : Theme.outline
 
-		Rectangle {
-			width: 10
-			height: 10
-			radius: 5
+			Behavior on width { NumberAnimation { duration: 120; easing.type: Easing.OutCubic }}
 
-			color: index === 0 ? "#222222" : "#bbbbbb"
+			MouseArea {
+				anchors.fill: parent
+				onClicked: NiriService.focusWorkspace(modelData.idx)
+			}
 		}
 	}
 }

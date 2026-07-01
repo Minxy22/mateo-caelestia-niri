@@ -1,16 +1,27 @@
 import QtQuick
+import Quickshell
+import "../../config"
 
 Rectangle {
-	width: 36
-	height: 36
+	id: root
+	width: 30
+	height: 30
+	radius: Theme.radiusSmall
+	color: mouseArea.containsMouse ? Theme.surfaceVariant : "transparent"
 
-	radius: 18
-
-	color: "#dddddd"
-
-	Text{
+	Text {
 		anchors.centerIn: parent
-		text: "M"
-		font.pixelSize: 18
+		text: "^_^"
+		color: Theme.textPrimary
+		font.pixelSize: 16
+	}
+
+	MouseArea {
+		id: mouseArea
+		anchors.fill: parent
+		hoverEnabled: true
+		cursorShape: Qt.PointingHandCursor
+		// Placeholder - swap for whatever launcher you pick (fuzzel/anyrun/etc.)
+		onClicked: Quickshell.execDetached(["fuzzel"])
 	}
 }
