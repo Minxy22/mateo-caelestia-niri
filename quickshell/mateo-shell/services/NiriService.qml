@@ -3,7 +3,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 
-QtObject {
+Item {
 	id: root
 
 	property var workspaces: []
@@ -37,7 +37,7 @@ QtObject {
 
 				if(event.WorkspacesChanged){
 					root.workspaces = event.WorkspacesChanged.workspaces;
-					root._updateeFocused();
+					root._updateFocused();
 				} else if (event.WorkspaceActivated){
 					root._updateFocused();
 				}
