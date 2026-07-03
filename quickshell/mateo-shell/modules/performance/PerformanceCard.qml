@@ -53,6 +53,8 @@ Item {
             Text {
                 visible: root.subtitle.length > 0
                 text: root.subtitle
+                width: parent.width
+                wrapMode: Text.Wrap
                 color: Theme.textSecondary
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeSmall
