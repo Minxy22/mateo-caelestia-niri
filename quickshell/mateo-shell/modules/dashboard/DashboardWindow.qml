@@ -8,10 +8,8 @@ import "../../services"
 
 PanelWindow {
     id: dashboardWindow
-    screen: Quickshell.screens[0]   // injected by the Variants{} in shell.qml
+    screen: modelData
 
-    // Layer-shell has no true "center" anchor, so the window spans the
-    // full width transparently and the visible panel is centered inside it.
     anchors { top: true; left: true; right: true }
 
     implicitHeight: 480
@@ -20,8 +18,6 @@ PanelWindow {
 
     visible: ShellState.dashboardOpen
 
-    // Lets `niri msg action ...` bind a key to:
-    //   quickshell -c mateo-shell ipc call dashboard toggle
     IpcHandler {
         target: "dashboard"
         function toggle() { ShellState.toggleDashboard() }
@@ -60,12 +56,17 @@ PanelWindow {
                 Layout.alignment: Qt.AlignHCenter
             }
 
-            // Content stub — Steps 3–6 fill this in per active tab.
-            // Intentionally empty.
-            Item {
+            // Only "Dashboard" has content so far — Steps 4-6 add the rest.
+            Loader {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                sourceComponent: ShellState.activeTab === "Dashboard" ? dashboardPageComponent : null
             }
         }
+    }
+
+    Component {
+        id: dashboardPageComponent
+        DashboardPage {}
     }
 }
