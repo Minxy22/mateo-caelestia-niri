@@ -7,6 +7,7 @@ import "../../config"
 import "../../services"
 import "../performance"
 import "../media"
+import "../weather"
 
 PanelWindow {
     id: dashboardWindow
@@ -66,6 +67,7 @@ PanelWindow {
                         case "Dashboard":   return dashboardPageComponent;
                         case "Performance": return performancePageComponent;
                         case "Media":       return mediaPageComponent;
+                        case "Weather":     return weatherPageComponent;
                         default:            return null;
                     }
                 }
@@ -86,5 +88,10 @@ PanelWindow {
     Component {
         id: mediaPageComponent
         MediaPage {}
+    }
+
+    Component {
+        id: weatherPageComponent
+        WeatherPage {}
     }
 }
