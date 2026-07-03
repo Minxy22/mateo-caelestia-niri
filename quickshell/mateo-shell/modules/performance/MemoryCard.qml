@@ -1,8 +1,9 @@
 import QtQuick
 import "../../config"
+import "../../services"
 
 PerformanceCard {
     title: "Memory"
-    subtitle: "6.4 / 15.5 GiB"
-    percentage: 41
+    subtitle: Math.round(SystemService.ramUsed) + " MB / " + Math.round(SystemService.ramTotal) + " MB"
+    percentage: SystemService.ramUsage
 }
