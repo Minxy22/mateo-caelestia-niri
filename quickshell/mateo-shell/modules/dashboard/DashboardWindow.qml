@@ -6,6 +6,7 @@ import Quickshell.Io
 import "../../config"
 import "../../services"
 import "../performance"
+import "../media"
 
 PanelWindow {
     id: dashboardWindow
@@ -64,6 +65,7 @@ PanelWindow {
                     switch (ShellState.activeTab) {
                         case "Dashboard":   return dashboardPageComponent;
                         case "Performance": return performancePageComponent;
+                        case "Media":       return mediaPageComponent;
                         default:            return null;
                     }
                 }
@@ -79,5 +81,10 @@ PanelWindow {
     Component {
         id: performancePageComponent
         PerformancePage {}
+    }
+
+    Component {
+        id: mediaPageComponent
+        MediaPage {}
     }
 }
