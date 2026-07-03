@@ -5,6 +5,13 @@ DashboardCard {
     id: root
     property var now: new Date()
 
+    Timer {
+        interval: 1000
+        running: true
+        repeat: true
+        onTriggered: root.now = new Date()
+    }
+
     Column {
         width: parent.width
         spacing: 4
@@ -23,12 +30,5 @@ DashboardCard {
             font.family: Theme.fontFamily
             font.pixelSize: Theme.fontSizeNormal
         }
-    }
-
-    Timer {
-        interval: 1000
-        running: true
-        repeat: true
-        onTriggered: root.now = new Date()
     }
 }
