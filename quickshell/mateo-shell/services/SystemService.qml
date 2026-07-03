@@ -2,7 +2,7 @@ pragma Singleton
 import QtQuick
 import Quickshell.Io
 
-QtObject {
+Item {
     id: root
 
     // ---- CPU (unchanged from previous step) ----
