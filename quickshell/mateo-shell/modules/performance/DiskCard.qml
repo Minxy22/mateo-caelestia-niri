@@ -1,8 +1,9 @@
 import QtQuick
 import "../../config"
+import "../../services"
 
 PerformanceCard {
     title: "Disk"
-    subtitle: "277 / 476.9 GiB"
-    percentage: 58
+    subtitle: SystemService.diskUsed.toFixed(1) + " GB / " + SystemService.diskTotal.toFixed(1) + " GB"
+    percentage: SystemService.diskUsage
 }
