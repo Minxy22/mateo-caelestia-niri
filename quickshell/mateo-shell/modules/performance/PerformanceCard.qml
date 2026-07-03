@@ -30,7 +30,7 @@ Item {
         border.color: Theme.outline
 
         Column {
-            anchors.fill: parent
+            width: parent.width
             anchors.margins: 14
             spacing: 10
 
