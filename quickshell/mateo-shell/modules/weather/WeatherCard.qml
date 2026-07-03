@@ -6,6 +6,11 @@ Item {
 
     default property alias content: contentColumn.children
 
+    scale: hoverArea.containsMouse ? 1.02 : 1.0
+    Behavior on scale {
+        NumberAnimation { duration: 150; easing.type: Easing.OutCubic }
+    }
+
     Rectangle {
         anchors.fill: parent
         anchors.topMargin: 3
@@ -27,5 +32,12 @@ Item {
             anchors.margins: 16
             spacing: 16
         }
+    }
+
+    MouseArea {
+        id: hoverArea
+        anchors.fill: parent
+        hoverEnabled: true
+        acceptedButtons: Qt.NoButton
     }
 }
