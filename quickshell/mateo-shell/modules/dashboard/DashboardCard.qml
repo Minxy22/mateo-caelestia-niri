@@ -13,27 +13,12 @@ Rectangle {
     border.width: 1
     border.color: Theme.outline
 
+    scale: hoverArea.containsMouse ? 1.02 : 1.0
+    Behavior on scale {
+        NumberAnimation { duration: 150; easing.type: Easing.OutCubic }
+    }
+
     layer.enabled: true
     layer.effect: MultiEffect {
         shadowEnabled: true
         shadowColor: "#26000000"
-        shadowBlur: 0.4
-        shadowVerticalOffset: 2
-    }
-
-    Column {
-        id: contentColumn
-        anchors.fill: parent
-        anchors.margins: 14
-        spacing: 8
-
-        Text {
-            visible: root.title.length > 0
-            text: root.title
-            color: Theme.textSecondary
-            font.family: Theme.fontFamily
-            font.pixelSize: Theme.fontSizeSmall
-            font.bold: true
-        }
-    }
-}
