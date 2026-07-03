@@ -1,33 +1,49 @@
 import QtQuick
 import QtQuick.Layouts
 import "../../config"
+import "../../services"
 
 MediaCard {
+    id: root
     anchors.fill: parent
+
+    function _formatTime(seconds) {
+        const s = Math.max(0, Math.floor(seconds));
+        const m = Math.floor(s / 60);
+        const r = s % 60;
+        return m + ":" + (r < 10 ? "0" : "") + r;
+    }
 
     RowLayout {
         width: parent.width
         spacing: 16
 
-        AlbumArt { size: 96 }
+        AlbumArt {
+            size: 96
+            artUrl: MediaService.artUrl
+        }
 
         ColumnLayout {
             Layout.fillWidth: true
             spacing: 4
 
             Text {
-                text: "Resonance"
+                Layout.fillWidth: true
+                text: MediaService.title
                 color: Theme.textPrimary
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeNormal
                 font.bold: true
+                elide: Text.ElideRight
             }
 
             Text {
-                text: "HOME"
+                Layout.fillWidth: true
+                text: MediaService.artist
                 color: Theme.textSecondary
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeSmall
+                elide: Text.ElideRight
             }
         }
     }
@@ -43,11 +59,14 @@ MediaCard {
             color: Theme.surfaceVariant
 
             Rectangle {
-                // 2:14 / 4:03 → 134s / 243s ≈ 55%, static placeholder ratio
-                width: parent.width * 0.55
                 height: parent.height
                 radius: 3
                 color: Theme.accent
+                width: parent.width * (MediaService.length > 0
+                    ? Math.min(1, MediaService.position / MediaService.length)
+                    : 0)
+
+                Behavior on width { NumberAnimation { duration: 200 } }
             }
         }
 
@@ -55,7 +74,7 @@ MediaCard {
             width: parent.width
 
             Text {
-                text: "2:14"
+                text: root._formatTime(MediaService.position)
                 color: Theme.textSecondary
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeSmall
@@ -64,7 +83,7 @@ MediaCard {
             Item { Layout.fillWidth: true }
 
             Text {
-                text: "4:03"
+                text: root._formatTime(MediaService.length)
                 color: Theme.textSecondary
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeSmall
