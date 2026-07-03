@@ -19,7 +19,19 @@ PanelWindow {
     exclusiveZone: 0
     color: "transparent"
 
-    visible: ShellState.dashboardOpen
+    // The layer-shell surface stays mapped slightly longer than "open" so
+    // the fade/scale-out below has time to play before it actually vanishes.
+    property bool showWindow: false
+    visible: showWindow
+
+    Connections {
+        target: ShellState
+        function onDashboardOpenChanged() {
+            if (ShellState.dashboardOpen) {
+                showWindow = true;
+            }
+        }
+    }
 
     IpcHandler {
         target: "dashboard"
@@ -38,9 +50,21 @@ PanelWindow {
 
         radius: Theme.radiusLarge
         color: Theme.surface
-        opacity: 0.96
+        opacity: ShellState.dashboardOpen ? 0.96 : 0
+        scale: ShellState.dashboardOpen ? 1.0 : 0.96
         border.width: 1
         border.color: Theme.outline
+
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 180
+                easing.type: Easing.OutCubic
+                onFinished: if (!ShellState.dashboardOpen) dashboardWindow.showWindow = false
+            }
+        }
+        Behavior on scale {
+            NumberAnimation { duration: 180; easing.type: Easing.OutCubic }
+        }
 
         layer.enabled: true
         layer.effect: MultiEffect {
@@ -60,8 +84,20 @@ PanelWindow {
             }
 
             Loader {
+                id: pageLoader
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+
+                opacity: item ? 1 : 0
+                scale: item ? 1 : 0.98
+
+                Behavior on opacity {
+                    NumberAnimation { duration: 140; easing.type: Easing.OutCubic }
+                }
+                Behavior on scale {
+                    NumberAnimation { duration: 140; easing.type: Easing.OutCubic }
+                }
+
                 sourceComponent: {
                     switch (ShellState.activeTab) {
                         case "Dashboard":   return dashboardPageComponent;
@@ -75,23 +111,8 @@ PanelWindow {
         }
     }
 
-    Component {
-        id: dashboardPageComponent
-        DashboardPage {}
-    }
-
-    Component {
-        id: performancePageComponent
-        PerformancePage {}
-    }
-
-    Component {
-        id: mediaPageComponent
-        MediaPage {}
-    }
-
-    Component {
-        id: weatherPageComponent
-        WeatherPage {}
-    }
+    Component { id: dashboardPageComponent; DashboardPage {} }
+    Component { id: performancePageComponent; PerformancePage {} }
+    Component { id: mediaPageComponent; MediaPage {} }
+    Component { id: weatherPageComponent; WeatherPage {} }
 }
