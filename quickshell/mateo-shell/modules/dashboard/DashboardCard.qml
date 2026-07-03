@@ -22,3 +22,32 @@ Rectangle {
     layer.effect: MultiEffect {
         shadowEnabled: true
         shadowColor: "#26000000"
+        shadowBlur: 0.4
+        shadowVerticalOffset: 2
+    }
+
+    // Hover tracking only — declared first so it sits beneath SystemCard's
+    // session buttons and any other interactive children in `content`.
+    MouseArea {
+        id: hoverArea
+        anchors.fill: parent
+        hoverEnabled: true
+        acceptedButtons: Qt.NoButton
+    }
+
+    Column {
+        id: contentColumn
+        anchors.fill: parent
+        anchors.margins: 14
+        spacing: 8
+
+        Text {
+            visible: root.title.length > 0
+            text: root.title
+            color: Theme.textSecondary
+            font.family: Theme.fontFamily
+            font.pixelSize: Theme.fontSizeSmall
+            font.bold: true
+        }
+    }
+}
