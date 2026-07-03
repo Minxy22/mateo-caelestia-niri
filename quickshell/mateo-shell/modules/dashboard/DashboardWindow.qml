@@ -5,6 +5,7 @@ import Quickshell
 import Quickshell.Io
 import "../../config"
 import "../../services"
+import "../performance"
 
 PanelWindow {
     id: dashboardWindow
@@ -56,11 +57,16 @@ PanelWindow {
                 Layout.alignment: Qt.AlignHCenter
             }
 
-            // Only "Dashboard" has content so far — Steps 4-6 add the rest.
             Loader {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                sourceComponent: ShellState.activeTab === "Dashboard" ? dashboardPageComponent : null
+                sourceComponent: {
+                    switch (ShellState.activeTab) {
+                        case "Dashboard":   return dashboardPageComponent;
+                        case "Performance": return performancePageComponent;
+                        default:            return null;
+                    }
+                }
             }
         }
     }
@@ -68,5 +74,10 @@ PanelWindow {
     Component {
         id: dashboardPageComponent
         DashboardPage {}
+    }
+
+    Component {
+        id: performancePageComponent
+        PerformancePage {}
     }
 }
