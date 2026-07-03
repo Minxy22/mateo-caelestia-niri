@@ -11,7 +11,7 @@ Row {
     Repeater {
         model: [
             { icon: "⏮", isMain: false },
-            { icon: "", isMain: true },   // filled below based on isPlaying
+            { icon: "", isMain: true },
             { icon: "⏭", isMain: false }
         ]
         delegate: Rectangle {
@@ -25,6 +25,14 @@ Row {
             color: hoverArea.containsMouse ? Theme.surfaceVariant : Theme.background
             border.width: 1
             border.color: Theme.outline
+            scale: hoverArea.containsMouse ? 1.08 : 1.0
+
+            Behavior on color {
+                ColorAnimation { duration: 120 }
+            }
+            Behavior on scale {
+                NumberAnimation { duration: 120; easing.type: Easing.OutCubic }
+            }
 
             Text {
                 anchors.centerIn: parent
@@ -42,7 +50,6 @@ Row {
                     if (btn.modelData.isMain) {
                         root.isPlaying = !root.isPlaying;
                     }
-                    // prev/next intentionally do nothing yet — no backend wired
                 }
             }
         }
