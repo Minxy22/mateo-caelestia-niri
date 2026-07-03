@@ -6,7 +6,7 @@ import "../../config"
 
 PanelWindow {
     id: sidebar
-    screen: modelData   // injected by the Variants{} in shell.qml
+    screen: Quickshell.screens[0]   // injected by the Variants{} in shell.qml
 
     anchors { left: true; top: true; bottom: true }
 

@@ -8,7 +8,7 @@ import "../../services"
 
 PanelWindow {
     id: dashboardWindow
-    screen: modelData   // injected by the Variants{} in shell.qml
+    screen: Quickshell.screens[0]   // injected by the Variants{} in shell.qml
 
     // Layer-shell has no true "center" anchor, so the window spans the
     // full width transparently and the visible panel is centered inside it.
