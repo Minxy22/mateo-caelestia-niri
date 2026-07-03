@@ -6,12 +6,14 @@ Item {
 
     property string title: ""
     property string subtitle: ""
-    property real percentage: 0   // static 0-100 for this step
+    property real percentage: 0
     default property alias extraContent: extraColumn.children
 
-    // Fake shadow: a soft, slightly offset rectangle behind the card body.
-    // Rectangle-only, no MultiEffect/layer.effect — keeps this compatible
-    // with any Quickshell/Qt version without extra module imports.
+    scale: hoverArea.containsMouse ? 1.02 : 1.0
+    Behavior on scale {
+        NumberAnimation { duration: 150; easing.type: Easing.OutCubic }
+    }
+
     Rectangle {
         anchors.fill: parent
         anchors.topMargin: 3
@@ -56,7 +58,6 @@ Item {
                 font.pixelSize: Theme.fontSizeSmall
             }
 
-            // Static usage bar — plain declarative binding, no driver behind it.
             Rectangle {
                 width: parent.width
                 height: 8
@@ -77,5 +78,12 @@ Item {
                 spacing: 6
             }
         }
+    }
+
+    MouseArea {
+        id: hoverArea
+        anchors.fill: parent
+        hoverEnabled: true
+        acceptedButtons: Qt.NoButton
     }
 }
