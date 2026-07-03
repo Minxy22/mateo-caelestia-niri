@@ -1,8 +1,9 @@
 import QtQuick
 import "../../config"
+import "../../services"
 
 PerformanceCard {
     title: "CPU"
-    subtitle: "INTEL CORE I7 10750H"
-    percentage: 23
+    subtitle: SystemService.cpuModel
+    percentage: SystemService.cpuUsage
 }
