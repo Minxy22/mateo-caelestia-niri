@@ -1,18 +1,17 @@
 import QtQuick
 import QtQuick.Layouts
 import "../../config"
+import "../../services"
 
 Row {
     id: root
     spacing: 14
 
-    property bool isPlaying: false
-
     Repeater {
         model: [
-            { icon: "⏮", isMain: false },
-            { icon: "", isMain: true },
-            { icon: "⏭", isMain: false }
+            { icon: "⏮", isMain: false, action: "previous" },
+            { icon: "", isMain: true, action: "playPause" },
+            { icon: "⏭", isMain: false, action: "next" }
         ]
         delegate: Rectangle {
             id: btn
@@ -27,16 +26,12 @@ Row {
             border.color: Theme.outline
             scale: hoverArea.containsMouse ? 1.08 : 1.0
 
-            Behavior on color {
-                ColorAnimation { duration: 120 }
-            }
-            Behavior on scale {
-                NumberAnimation { duration: 120; easing.type: Easing.OutCubic }
-            }
+            Behavior on color { ColorAnimation { duration: 120 } }
+            Behavior on scale { NumberAnimation { duration: 120; easing.type: Easing.OutCubic } }
 
             Text {
                 anchors.centerIn: parent
-                text: btn.modelData.isMain ? (root.isPlaying ? "⏸" : "▶") : btn.modelData.icon
+                text: btn.modelData.isMain ? (MediaService.playing ? "⏸" : "▶") : btn.modelData.icon
                 color: Theme.textPrimary
                 font.pixelSize: btn.modelData.isMain ? 16 : 14
             }
@@ -47,8 +42,10 @@ Row {
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                    if (btn.modelData.isMain) {
-                        root.isPlaying = !root.isPlaying;
+                    switch (btn.modelData.action) {
+                        case "playPause": MediaService.playPause(); break;
+                        case "next": MediaService.next(); break;
+                        case "previous": MediaService.previous(); break;
                     }
                 }
             }
