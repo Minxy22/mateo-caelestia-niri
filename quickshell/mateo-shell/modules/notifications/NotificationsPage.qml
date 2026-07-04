@@ -1,17 +1,24 @@
 import QtQuick
 import QtQuick.Layouts
 import "../../config"
+import "../../services"
 
 NotificationCard {
     id: root
     anchors.fill: parent
 
-    property var notifications: [
-        { app: "Spotify", title: "Now Playing", body: "Resonance — HOME", time: "1m ago" },
-        { app: "Discord", title: "New message", body: "Hey, are you around later?", time: "5m ago" },
-        { app: "Telegram", title: "Mateo", body: "Sent you a photo", time: "12m ago" },
-        { app: "System", title: "Update available", body: "CachyOS kernel update ready to install", time: "1h ago" }
-    ]
+    function _formatRelativeTime(timestamp) {
+        const diffMs = Date.now() - timestamp;
+        const diffSec = Math.floor(diffMs / 1000);
+
+        if (diffSec < 60) return "just now";
+        const diffMin = Math.floor(diffSec / 60);
+        if (diffMin < 60) return diffMin + "m ago";
+        const diffHour = Math.floor(diffMin / 60);
+        if (diffHour < 24) return diffHour + "h ago";
+        const diffDay = Math.floor(diffHour / 24);
+        return diffDay + "d ago";
+    }
 
     RowLayout {
         width: parent.width
@@ -51,7 +58,7 @@ NotificationCard {
                 anchors.fill: parent
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
-                onClicked: root.notifications = []
+                onClicked: NotificationService.clearAll()
             }
         }
     }
@@ -61,29 +68,25 @@ NotificationCard {
         spacing: 10
 
         Text {
-            visible: root.notifications.length === 0
+            visible: NotificationService.notifications.length === 0
             text: "No notifications"
+            anchors.horizontalCenter: parent.horizontalCenter
             color: Theme.textSecondary
             font.family: Theme.fontFamily
             font.pixelSize: Theme.fontSizeSmall
         }
 
         Repeater {
-            model: root.notifications
+            model: NotificationService.notifications
             delegate: NotificationItem {
                 required property var modelData
-                required property int index
 
-                appName: modelData.app
-                title: modelData.title
+                appName: modelData.appName
+                title: modelData.summary
                 body: modelData.body
-                relativeTime: modelData.time
+                relativeTime: root._formatRelativeTime(modelData.timestamp)
 
-                onDismissed: {
-                    let updated = root.notifications.slice();
-                    updated.splice(index, 1);
-                    root.notifications = updated;
-                }
+                onDismissed: NotificationService.dismiss(modelData.id)
             }
         }
     }
