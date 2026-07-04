@@ -12,7 +12,7 @@ import "../notifications"
 
 PanelWindow {
     id: dashboardWindow
-    screen: modelData
+    screen: Quickshell.screens[0]
 
     anchors { top: true; left: true; right: true }
 
