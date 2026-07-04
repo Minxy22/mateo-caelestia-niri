@@ -7,7 +7,7 @@ Row {
     id: root
     spacing: 4
 
-    readonly property var tabNames: ["Dashboard", "Media", "Performance", "Weather"]
+    readonly property var tabNames: ["Dashboard", "Media", "Performance", "Weather", "Notifications"]
 
     Repeater {
         model: root.tabNames
