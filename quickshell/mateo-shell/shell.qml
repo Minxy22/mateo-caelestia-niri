@@ -1,5 +1,5 @@
 import Quickshell
-import "./modules/frame"
+import "./modules/sidebar"
 import "./modules/dashboard"
 import "./modules/launcher"
 import "./modules/session"
@@ -7,33 +7,15 @@ import "./modules/power"
 import "./modules/osd"
 
 ShellRoot {
-    Variants {
-        model: Quickshell.screens
-        DesktopFrame {}
-    }
+    Sidebar {}
 
-    Variants {
-        model: Quickshell.screens
-        DashboardWindow {}
-    }
+    DashboardWindow {}
 
-    Variants {
-        model: Quickshell.screens
-        LauncherWindow {}
-    }
+    LauncherWindow {}
 
-    Variants {
-        model: Quickshell.screens
-        SessionWindow {}
-    }
+    SessionWindow {}
 
-    Variants {
-        model: Quickshell.screens
-        PowerWindow {}
-    }
+    PowerWindow {}
 
-    Variants {
-        model: Quickshell.screens
-        OsdWindow {}
-    }
+    OsdWindow {}
 }
