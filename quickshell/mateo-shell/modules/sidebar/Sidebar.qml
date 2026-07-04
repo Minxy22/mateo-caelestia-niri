@@ -1,77 +1,40 @@
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Effects
-import Quickshell
 import "../../config"
+import "components"
 
-PanelWindow {
-    id: sidebar
-    screen: Quickshell.screens[0]   // injected by the Variants{} in shell.qml
+Item {
+    id: root
 
-    anchors { left: true; top: true; bottom: true }
-
-    margins {
-        left: Theme.barMargin
-        top: Theme.barMargin
-        bottom: Theme.barMargin
-    }
-
-    implicitWidth: 56
-    exclusiveZone: implicitWidth + Theme.barMargin
-    color: "transparent"
-
-    Rectangle {
-        id: background
+    ColumnLayout {
         anchors.fill: parent
-        radius: Theme.radiusLarge
-        color: Theme.surface
-        opacity: 0.94
-        border.width: 1
-        border.color: Theme.outline
+        anchors.margins: 8
+        spacing: 10
 
-        layer.enabled: true
-        layer.effect: MultiEffect {
-            shadowEnabled: true
-            shadowColor: "#33000000"
-            shadowBlur: 0.5
-            shadowVerticalOffset: 3
+        WorkspaceIsland {
+            Layout.alignment: Qt.AlignHCenter
         }
 
-        ColumnLayout {
-            anchors.fill: parent
-            anchors.margins: 10
-            spacing: 14
+        ContextIndicator {
+            Layout.alignment: Qt.AlignHCenter
+        }
 
-            SidebarButton {
-                Layout.alignment: Qt.AlignHCenter
-                iconText: "⊞"
-                onClicked: Quickshell.execDetached(["fuzzel"])
-            }
+        FavoriteApps {
+            Layout.alignment: Qt.AlignHCenter
+        }
 
-            WorkspaceIndicator {
-                Layout.alignment: Qt.AlignHCenter
-            }
+        Item { Layout.fillHeight: true }
 
-            // Spacer — pushes the shortcut group to the bottom, dock-style
-            Item { Layout.fillHeight: true }
+        ClockIsland {
+            Layout.alignment: Qt.AlignHCenter
+        }
 
-            ColumnLayout {
-                Layout.alignment: Qt.AlignHCenter
-                spacing: 10
+        SystemToggleIsland {
+            Layout.alignment: Qt.AlignHCenter
+        }
 
-                SidebarButton {
-                    iconText: "♪"
-                    onClicked: Quickshell.execDetached(["sh", "-c", "playerctl play-pause"])
-                }
-                SidebarButton {
-                    iconText: "▢"
-                    onClicked: Quickshell.execDetached(["sh", "-c", "swww img $(find ~/Pictures/Wallpapers -type f | shuf -n1)"])
-                }
-                SidebarButton {
-                    iconText: "⚙"
-                    onClicked: Quickshell.execDetached(["sh", "-c", "your-settings-app"])
-                }
-            }
+        SidebarPowerButton {
+            Layout.alignment: Qt.AlignHCenter
         }
     }
 }
