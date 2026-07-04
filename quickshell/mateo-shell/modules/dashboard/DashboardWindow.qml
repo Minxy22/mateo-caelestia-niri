@@ -8,10 +8,11 @@ import "../../services"
 import "../performance"
 import "../media"
 import "../weather"
+import "../notifications"
 
 PanelWindow {
     id: dashboardWindow
-    screen: Quickshell.screens[0]
+    screen: modelData
 
     anchors { top: true; left: true; right: true }
 
@@ -19,8 +20,6 @@ PanelWindow {
     exclusiveZone: 0
     color: "transparent"
 
-    // The layer-shell surface stays mapped slightly longer than "open" so
-    // the fade/scale-out below has time to play before it actually vanishes.
     property bool showWindow: false
     visible: showWindow
 
@@ -100,11 +99,12 @@ PanelWindow {
 
                 sourceComponent: {
                     switch (ShellState.activeTab) {
-                        case "Dashboard":   return dashboardPageComponent;
-                        case "Performance": return performancePageComponent;
-                        case "Media":       return mediaPageComponent;
-                        case "Weather":     return weatherPageComponent;
-                        default:            return null;
+                        case "Dashboard":     return dashboardPageComponent;
+                        case "Performance":   return performancePageComponent;
+                        case "Media":         return mediaPageComponent;
+                        case "Weather":       return weatherPageComponent;
+                        case "Notifications": return notificationsPageComponent;
+                        default:              return null;
                     }
                 }
             }
@@ -115,4 +115,5 @@ PanelWindow {
     Component { id: performancePageComponent; PerformancePage {} }
     Component { id: mediaPageComponent; MediaPage {} }
     Component { id: weatherPageComponent; WeatherPage {} }
+    Component { id: notificationsPageComponent; NotificationsPage {} }
 }
