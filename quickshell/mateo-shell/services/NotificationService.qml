@@ -6,7 +6,6 @@ Item {
     id: root
 
     property var notifications: []
-    onNotificationsChanged: {console.log(JSON.stringify(notifications))}
     readonly property int _maxStored: 50
 
     function dismiss(id) {
