@@ -8,7 +8,7 @@ import "../../services"
 
 PanelWindow {
     id: sessionWindow
-    screen: modelData   // injected by the Variants{} in shell.qml
+    screen: Quickshell.screens[0]   // injected by the Variants{} in shell.qml
 
     anchors { top: true; right: true; bottom: true }
     exclusiveZone: 0
