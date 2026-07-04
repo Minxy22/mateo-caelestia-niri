@@ -6,13 +6,7 @@ RowLayout {
     id: root
     spacing: 10
 
-    property var days: [
-        { label: "Mon", temp: "19°" },
-        { label: "Tue", temp: "20°" },
-        { label: "Wed", temp: "18°" },
-        { label: "Thu", temp: "21°" },
-        { label: "Fri", temp: "22°" }
-    ]
+    property var days: []
 
     Repeater {
         model: root.days
@@ -33,7 +27,7 @@ RowLayout {
 
                 Text {
                     anchors.horizontalCenter: parent.horizontalCenter
-                    text: dayCell.modelData.label
+                    text: dayCell.modelData.day
                     color: Theme.textSecondary
                     font.family: Theme.fontFamily
                     font.pixelSize: Theme.fontSizeSmall
@@ -42,14 +36,14 @@ RowLayout {
 
                 Text {
                     anchors.horizontalCenter: parent.horizontalCenter
-                    text: "☁"
+                    text: dayCell.modelData.icon
                     color: Theme.textSecondary
                     font.pixelSize: 18
                 }
 
                 Text {
                     anchors.horizontalCenter: parent.horizontalCenter
-                    text: dayCell.modelData.temp
+                    text: dayCell.modelData.temp + "°"
                     color: Theme.textPrimary
                     font.family: Theme.fontFamily
                     font.pixelSize: Theme.fontSizeSmall
