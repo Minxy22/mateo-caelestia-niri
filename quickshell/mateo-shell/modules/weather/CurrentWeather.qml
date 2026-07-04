@@ -9,6 +9,7 @@ Column {
     property string city: "Quito"
     property string temperature: "18°C"
     property string condition: "Cloudy"
+    property string icon: "☁"
 
     RowLayout {
         width: parent.width
@@ -41,7 +42,6 @@ Column {
 
         Item { Layout.fillWidth: true }
 
-        // Large weather icon placeholder — monochrome, no image asset
         Rectangle {
             width: 88
             height: 88
@@ -52,7 +52,7 @@ Column {
 
             Text {
                 anchors.centerIn: parent
-                text: "☁"
+                text: root.icon
                 color: Theme.textSecondary
                 font.pixelSize: 44
             }
