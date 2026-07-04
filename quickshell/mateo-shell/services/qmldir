@@ -9,3 +9,6 @@ singleton SessionService 1.0 SessionService.qml
 singleton PowerService 1.0 PowerService.qml
 singleton AudioService 1.0 AudioService.qml
 singleton BrightnessService 1.0 BrightnessService.qml
+singleton WifiService 1.0 WifiService.qml
+singleton BluetoothService 1.0 BluetoothService.qml
+singleton GameModeService 1.0 GameModeService.qml
