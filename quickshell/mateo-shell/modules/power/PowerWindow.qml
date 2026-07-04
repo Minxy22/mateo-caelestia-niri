@@ -8,7 +8,7 @@ import "../../services"
 
 PanelWindow {
     id: powerWindow
-    screen: modelData
+    screen: Quickshell.screens[0]
 
     anchors { top: true; left: true; right: true; bottom: true }
     exclusiveZone: 0
