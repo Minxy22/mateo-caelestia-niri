@@ -9,7 +9,7 @@ import "../../services"
 
 PanelWindow {
     id: launcherWindow
-    screen: modelData   // injected by the Variants{} in shell.qml
+    screen: Quickshell.screens[0]   // injected by the Variants{} in shell.qml
 
     anchors { top: true; left: true; right: true; bottom: true }
     exclusiveZone: 0
