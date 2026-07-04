@@ -1,8 +1,21 @@
 import Quickshell
-import "./modules/sidebar"
+import "./modules/frame"
 import "./modules/dashboard"
+import "./modules/launcher"
 
 ShellRoot {
-	Sidebar {}
-	DashboardWindow {}
+    Variants {
+        model: Quickshell.screens
+        DesktopFrame {}
+    }
+
+    Variants {
+        model: Quickshell.screens
+        DashboardWindow {}
+    }
+
+    Variants {
+        model: Quickshell.screens
+        LauncherWindow {}
+    }
 }
