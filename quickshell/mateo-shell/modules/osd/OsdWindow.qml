@@ -7,7 +7,7 @@ import "../../services"
 
 PanelWindow {
     id: osdWindow
-    screen: modelData
+    screen: Quickshell.screens[0]
 
     readonly property int triggerZoneWidth: 12
     readonly property int panelWidth: 220
