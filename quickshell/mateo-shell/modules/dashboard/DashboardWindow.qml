@@ -13,7 +13,6 @@ import "../notifications"
 PanelWindow {
     id: dashboardWindow
     screen: Quickshell.screens[0]
-    property var _notificationBootstrap: NotificationService
 
     anchors { top: true; left: true; right: true }
 
