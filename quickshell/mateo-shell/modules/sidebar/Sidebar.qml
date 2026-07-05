@@ -1,50 +1,82 @@
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Effects
+import Quickshell
 import "../../config"
 import "components"
 
-Item {
-    id: root
+PanelWindow {
+    id: sidebar
 
-    width: 72
-    height: parent ? parent.height : 800
+    screen: Quickshell.screens[0]
 
-    Rectangle {
-        anchors.fill: parent
-        color: "#22ff0000"   // temporal para debug
+    anchors {
+        left: true
+        top: true
+        bottom: true
     }
 
-    ColumnLayout {
+    margins {
+        left: Theme.barMargin
+        top: Theme.barMargin
+        bottom: Theme.barMargin
+    }
+
+    implicitWidth: 72
+    exclusiveZone: implicitWidth + Theme.barMargin
+    color: "transparent"
+
+    Rectangle {
+        id: background
+
         anchors.fill: parent
-        anchors.margins: 8
-        spacing: 10
+        radius: Theme.radiusLarge
+        color: Theme.surface
+        opacity: 0.94
 
-        WorkspaceIsland {
-            Layout.alignment: Qt.AlignHCenter
+        border.width: 1
+        border.color: Theme.outline
+
+        layer.enabled: true
+        layer.effect: MultiEffect {
+            shadowEnabled: true
+            shadowColor: "#33000000"
+            shadowBlur: 0.5
+            shadowVerticalOffset: 3
         }
 
-        ContextIndicator {
-            Layout.alignment: Qt.AlignHCenter
-        }
+        ColumnLayout {
+            anchors.fill: parent
+            anchors.margins: 8
+            spacing: 10
 
-        FavoriteApps {
-            Layout.alignment: Qt.AlignHCenter
-        }
+            WorkspaceIsland {
+                Layout.alignment: Qt.AlignHCenter
+            }
 
-        Item {
-            Layout.fillHeight: true
-        }
+            ContextIndicator {
+                Layout.alignment: Qt.AlignHCenter
+            }
 
-        ClockIsland {
-            Layout.alignment: Qt.AlignHCenter
-        }
+            FavoriteApps {
+                Layout.alignment: Qt.AlignHCenter
+            }
 
-        SystemToggleIsland {
-            Layout.alignment: Qt.AlignHCenter
-        }
+            Item {
+                Layout.fillHeight: true
+            }
 
-        SidebarPowerButton {
-            Layout.alignment: Qt.AlignHCenter
+            ClockIsland {
+                Layout.alignment: Qt.AlignHCenter
+            }
+
+            SystemToggleIsland {
+                Layout.alignment: Qt.AlignHCenter
+            }
+
+            SidebarPowerButton {
+                Layout.alignment: Qt.AlignHCenter
+            }
         }
     }
 }
