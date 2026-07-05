@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Effects
 import Quickshell
+
 import "../../config"
 import "components"
 
@@ -34,8 +35,10 @@ PanelWindow {
         color: Theme.surface
         opacity: 0.94
 
-        border.width: 1
-        border.color: Theme.outline
+        border {
+            width: 1
+            color: Theme.outline
+        }
 
         layer.enabled: true
         layer.effect: MultiEffect {
@@ -48,27 +51,26 @@ PanelWindow {
         ColumnLayout {
             anchors.fill: parent
             anchors.margins: 8
-            spacing: 10
+            spacing: 0
 
             WorkspaceIsland {
                 Layout.alignment: Qt.AlignHCenter
             }
 
             Item {
-                Layout.fillHeight: true
+                Layout.preferredHeight: 40
             }
 
-            ColumnLayout {
+            ContextIndicator {
                 Layout.alignment: Qt.AlignHCenter
-                spacing: 18
+            }
 
-                ContextIndicator {
-                    Layout.alignment: Qt.AlignHCenter
-                }
+            Item {
+                Layout.preferredHeight: 20
+            }
 
-                FavoriteApps {
-                    Layout.alignment: Qt.AlignHCenter
-                }
+            FavoriteApps {
+                Layout.alignment: Qt.AlignHCenter
             }
 
             Item {
@@ -79,8 +81,16 @@ PanelWindow {
                 Layout.alignment: Qt.AlignHCenter
             }
 
+            Item {
+                Layout.preferredHeight: 10
+            }
+
             SystemToggleIsland {
                 Layout.alignment: Qt.AlignHCenter
+            }
+
+            Item {
+                Layout.preferredHeight: 10
             }
 
             SidebarPowerButton {
