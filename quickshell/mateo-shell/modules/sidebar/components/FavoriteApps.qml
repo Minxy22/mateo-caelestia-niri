@@ -1,4 +1,5 @@
 import QtQuick
+import Quickshell.Widgets
 import "../../../config"
 import "../../../services"
 
@@ -6,14 +7,14 @@ Rectangle {
     id: root
 
     readonly property var favorites: [
-        { icon: "♪", exec: "spotify" },
-        { icon: "◔", exec: "discord" },
-        { icon: "🦊", exec: "firefox" },
-        { icon: "▢", exec: "kitty" }
+        { icon: "spotify", exec: "spotify" },
+        { icon: "discord", exec: "discord" },
+        { icon: "firefox", exec: "firefox" },
+        { icon: "utilities-terminal", exec: "kitty" }
     ]
 
-    width: 56
-    height: column.implicitHeight + 16
+    width: 42
+    height: column.implicitHeight + 12
     radius: Theme.radiusMedium
     color: Theme.background
     border.width: 1
@@ -22,14 +23,32 @@ Rectangle {
     Column {
         id: column
         anchors.centerIn: parent
-        spacing: 6
+        spacing: 10
 
         Repeater {
             model: root.favorites
-            delegate: FavoriteButton {
+            delegate: Item {
+                id: entry
                 required property var modelData
-                iconText: modelData.icon
-                onClicked: AppLauncherService.launch(modelData.exec)
+
+                width: 26
+                height: 26
+                scale: hoverArea.containsMouse ? 1.08 : 1.0
+
+                Behavior on scale { NumberAnimation { duration: 150; easing.type: Easing.OutCubic } }
+
+                IconImage {
+                    anchors.fill: parent
+                    source: Quickshell.iconPath(entry.modelData.icon, "application-x-executable")
+                }
+
+                MouseArea {
+                    id: hoverArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: AppLauncherService.launch(entry.modelData.exec)
+                }
             }
         }
     }
