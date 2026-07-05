@@ -54,12 +54,21 @@ PanelWindow {
                 Layout.alignment: Qt.AlignHCenter
             }
 
-            ContextIndicator {
-                Layout.alignment: Qt.AlignHCenter
+            Item {
+                Layout.fillHeight: true
             }
 
-            FavoriteApps {
+            ColumnLayout {
                 Layout.alignment: Qt.AlignHCenter
+                spacing: 18
+
+                ContextIndicator {
+                    Layout.alignment: Qt.AlignHCenter
+                }
+
+                FavoriteApps {
+                    Layout.alignment: Qt.AlignHCenter
+                }
             }
 
             Item {
